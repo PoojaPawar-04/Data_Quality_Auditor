@@ -1,0 +1,13 @@
+Customer_ID,Name,Email,Phone,City,Order_Date,Category,Sales,Status
+C001,Pooja Sharma,pooja@gmail.com,9876543210,Pune,2026-01-05,Electronics,25000,Completed
+C002,Rahul Patil,rahul@gmail.com,9876543211,Mumbai,2026-01-07,Clothing,15000,Completed
+C003,Neha Joshi,,9876543212,Pune,2026-01-10,Electronics,18000,Pending
+C004,Amit Shah,amit@gmail.com,,Delhi,2026-01-12,Furniture,22000,Completed
+C005,Riya Mehta,riya@gmail.com,9876543214,Mumbai,2026-01-15,Clothing,12000,Cancelled
+C006,Rahul Patil,rahul@gmail.com,9876543211,Mumbai,2026-01-07,Clothing,15000,Completed
+C007,Ankit Verma,ankit@gmail,9876543216,Pune,2026-01-18,Electronics,20000,Completed
+C008,Sneha Kulkarni,sneha@gmail.com,9876543217,pune,2026-01-20,Electronics,17000,Completed
+C009,,karan@gmail.com,9876543218,Nashik,2026-01-22,Furniture,19000,Pending
+C010,Karan Deshmukh,karan@gmail.com,9876543218,Nashik,2026-01-22,Furniture,19000,Pending
+C011,Meera Rao,meera@gmail.com,9876543220,Mumbai,2026-01-25,Clothing,-5000,Completed
+C012,Arjun Singh,arjun@gmail.com,9876543221,Pune,2026-01-27,Electronics,23000,Unknown
