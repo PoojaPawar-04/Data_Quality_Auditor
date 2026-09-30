@@ -37,14 +37,6 @@ st.markdown(
         margin-top: 30px;
         margin-bottom: 10px;
     }
-
-    .info-box {
-        padding: 15px;
-        border-radius: 10px;
-        background-color: #f5f7fa;
-        border: 1px solid #e0e0e0;
-        margin-bottom: 20px;
-    }
     </style>
     """,
     unsafe_allow_html=True
@@ -64,34 +56,90 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-
 # ---------------------------------------------------------
-# FILE UPLOAD
+# DATA SOURCE
 # ---------------------------------------------------------
 
-st.subheader("📂 Upload Dataset")
+st.subheader("📂 Choose Data Source")
 
-uploaded_file = st.file_uploader(
-    "Choose a CSV or Excel file",
-    type=["csv", "xlsx"],
-    key="data_upload"
+data_source = st.radio(
+    "Select how you want to provide the dataset:",
+    [
+        "Use Sample Dataset",
+        "Upload Your Own CSV/Excel"
+    ],
+    horizontal=True
 )
 
-if uploaded_file is not None:
+df = None
 
-    # -----------------------------------------------------
-    # READ FILE
-    # -----------------------------------------------------
+# ---------------------------------------------------------
+# USE SAMPLE DATASET
+# ---------------------------------------------------------
 
-    if uploaded_file.name.endswith(".csv"):
-        df = pd.read_csv(uploaded_file)
+if data_source == "Use Sample Dataset":
 
-    elif uploaded_file.name.endswith(".xlsx"):
-        df = pd.read_excel(uploaded_file)
+    try:
 
-    st.success(
-        f"✅ Successfully uploaded: **{uploaded_file.name}**"
+        df = pd.read_csv("sample_data.csv")
+
+        st.success(
+            "✅ Sample Customer Data loaded successfully!"
+        )
+
+        sample_csv = df.to_csv(
+            index=False
+        ).encode("utf-8")
+
+        st.download_button(
+            label="⬇️ Download Sample Dataset",
+            data=sample_csv,
+            file_name="sample_customer_data.csv",
+            mime="text/csv"
+        )
+
+    except FileNotFoundError:
+
+        st.error(
+            "❌ sample_data.csv was not found. "
+            "Please make sure it is in the same folder as app.py."
+        )
+
+# ---------------------------------------------------------
+# UPLOAD YOUR OWN DATASET
+# ---------------------------------------------------------
+
+else:
+
+    uploaded_file = st.file_uploader(
+        "Choose a CSV or Excel file",
+        type=["csv", "xlsx"],
+        key="data_upload"
     )
+
+    if uploaded_file is not None:
+
+        if uploaded_file.name.endswith(".csv"):
+
+            df = pd.read_csv(
+                uploaded_file
+            )
+
+        elif uploaded_file.name.endswith(".xlsx"):
+
+            df = pd.read_excel(
+                uploaded_file
+            )
+
+        st.success(
+            f"✅ Successfully uploaded: **{uploaded_file.name}**"
+        )
+
+# ---------------------------------------------------------
+# RUN AUDIT ONLY WHEN DATASET EXISTS
+# ---------------------------------------------------------
+
+if df is not None:
 
     # -----------------------------------------------------
     # DATASET OVERVIEW
@@ -707,7 +755,7 @@ if uploaded_file is not None:
     )
 
     st.caption(
-        "Preview of the uploaded dataset."
+        "Preview of the selected dataset."
     )
 
     st.dataframe(
